@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;	 
+}
+nav {
+    line-height:20px;
+    background-color:#eeeeee;
+    height:530px;
+    width:350px;
+    float:left;
+    padding:10px;	      
+}
+section {
+    width:350px;
+    float:left;
+    padding:10px;	 	 
+}
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;	 	 
+}
+</style>
+</head>
+
+<body>
+<a href="login.php">HOME</a>
+<header>
+<h1>Indian Railway</h1>
+</header>
+
+   <form name ="user"     method ="POST" action ="station.php">
+    sname      :     <input   type="text"  class="form-control"  name ="sname" ><br>
+    sno        :     <input  type ="int "  class="form-control" name ="sno"><br>
+    <input type ="submit" class="form-control" value="go">
+    </form></div>
+    </div>
+<?php 
+    $con    =    mysqli_connect("localhost","root","amit","railway");
+    if($con){
+    if(isset($_POST['sname']))
+    {
+        $sql1   =   "insert into station (sname,sno) values ('$_POST[sname]','$_POST[sno]')";
+        if(mysqli_query($con,$sql1))
+            echo "added<br>";
+        else
+            echo "error".mysqli_error();
+    }
+}
+else
+    echo "failed connection ".mysqli_connet_error();
+?>
+
+<footer>
+Copyright © IndianRailway
+</footer>
+
+</body>
+</html>
+

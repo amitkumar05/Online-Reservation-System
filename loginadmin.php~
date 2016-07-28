@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;	 
+}
+section {
+    height:510px;
+    width:1000px;
+    float:left;
+    padding:10px;	 	 
+}
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;	 	 
+}
+</style>
+
+<header>
+<h1>Indian Railway</h1>
+<a href="http://localhost/railway/login.php">HOME</a>
+
+</header>
+
+<section>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+<body>
+<a href="login.php">HOME</a>
+ <div class="form-group">
+   <form name ="user"     method ="POST" >
+    username      :  <input   type="text"  class="form-control"  name ="name" ><br>
+    password  :   <input  type ="password"  name ="password"><br>
+    <input type ="submit" value="go">
+    </div></form>
+<?php  session_start();
+    $con    =    mysqli_connect("localhost","root","rohit","railway");
+    if($con){
+    if(isset($_POST['name']))
+    {
+        $sql1   =   "select count(*) from admin where username='$_POST[name]' and passwd='$_POST[password]'";
+        if($result=mysqli_query($con,$sql1))
+            {
+                $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+                if($row['count(*)']==1){
+                    $check=1;
+                }
+                else
+                    $check=0;
+            }
+        else
+            echo "error".mysqli_error();
+        if($check==1){
+                $_SESSION['uname']=$_POST['name'];
+                $newurl="admin.php";
+                header('LOCATION: '.$newurl);
+            }   
+        else
+        {
+            echo "incorrect username and password";
+        }
+    
+}
+}
+else
+    echo "failed connection ".mysqli_connet_error();
+?>
+
+</section>
+
+<footer>
+Copyright © IndianRailway
+</footer>
+
+</body>
+</html>
+
